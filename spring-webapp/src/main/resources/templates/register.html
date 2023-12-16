@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/quill.snow.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script th:inline="javascript">
+        var mess = /*[[${mess}]]*/ '';
+    </script>
+</head>
+<style>
+    /* Style cho form đăng ký popup */
+    #signup-form {
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 10; /* Đảm bảo form nằm trên overlay */
+      border-radius: 10px;
+      width: 60%;
+      overflow: auto;
+      height: 85%;
+    }
+</style>
+<body id="top">
+
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+
+<div class="site-wrap">
+
+    <div th:replace="~{common/header :: header}"></div>
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('/images/hero_1.jpg');"
+             id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 class="text-white font-weight-bold">Sign Up</h1>
+                    <div class="custom-breadcrumbs">
+                        <a href="/">Home</a> <span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>Sign Up</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="site-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-6">
+                    <h2 class="mb-6">Sign Up To JobBoard</h2>
+                    <form action="/register" class="p-4 border rounded" method="POST">
+                        <div class="form-group row">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label for="username" class="text-black">Please input username</label>
+                                <input required type="text" name="username" class="form-control" id="username" placeholder="Username" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label for="email" class="text-black">Email</label>
+                                <div class="row">
+                                    <input required type="email" name="email" id="email" placeholder="Email" value="" style="margin-left: 10px;" class="form-control col-sm-7" >
+                                    <button type="button" class="btn px-4 btn-primary text-white col-sm-4" style="margin-left: 10px;" onClick="sendEmail()">Send OTP</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label for="password" class="text-black">Password</label>
+                                <input required type="password" name="password" class="form-control" id="password" placeholder="Password" value="">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label for="confirmPassword" class="text-black">ConfirmPassword</label>
+                                <input required type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="ConfirmPassword" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label for="fullName" class="text-black">Fullname</label>
+                                <input required type="text" name="fullName" class="form-control" id="fullName" placeholder="fullName" value="">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <div class="col-md-12 mb-3 mb-md-0">
+                                <label for="otp" class="text-black">Mã OTP</label>
+                                <input required type="text" class="form-control" id="otp" placeholder="otp" value="">
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn px-4 btn-primary text-white" onClick="register()">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div th:replace="~{common/footer :: footer}"></div>
+</div>
+
+<!-- SCRIPTS -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/stickyfill.min.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/quill.min.js}"></script>
+
+
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+<script th:src="@{/assets/js/admin.js}"></script>
+<link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
+<script th:src="@{/js/custom.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+<script>
+    let OTP = "-1"
+    warning(mess)
+    // JavaScript để xử lý hiển thị/ẩn form đăng ký popup
+
+    function sendEmail() {
+        var email = $("#email").val();
+
+        if(email != "" && email.length > 10){
+            $.ajax({
+                url: "/admin/sendOTP?email="+email,
+                method: "GET",
+                contentType: "application/json",
+                success: function (response) {
+                    if(response == "Email đã được sử dụng"){
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Oosp. Fail!!!',
+                            text: response
+                        })
+                    }else{
+                        OTP = response
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Congratulation!!!!!!',
+                            text: 'Mã OTP đã được gửi đến email của bạn'
+                        })
+                    }
+                },
+            });
+        }else{
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oosp. Fail!!!',
+                text: 'Vui lòng kiểm tra lại email'
+            })
+        }
+    }
+
+    function register(){
+        event.preventDefault()
+        var password = $("#password").val();
+        var confirmPassword = $("#confirmPassword").val();
+        var otp = $("#otp").val();
+        var username = $("#username").val();
+        var form = document.getElementById('form');
+
+        if(otp != OTP ){
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oosp. Fail!!!',
+                text: 'OTP không chính xác vui lòng nhập lại'
+            })
+        }else if(password === confirmPassword){
+             $.ajax({
+                url: "/admin/findUserName?username="+username,
+                method: "GET",
+                contentType: "application/json",
+                success: function (response) {
+                    if(response == "Username đã tồn tại"){
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Oosp. Fail!!!',
+                            text: response
+                        })
+                    }else{
+                        $.ajax({
+                            url: "/register",
+                            type: "POST",
+                            contentType: "application/json",
+                            data: JSON.stringify({
+                                // Dữ liệu của bạn ở đây
+                                username: username,
+                                password: password,
+                                role:"Candidate",
+                                email:$("#email").val(),
+                                fullName:$("#fullName").val(),
+                            }),
+                            success: function(response) {
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Congratulation!!!!!!',
+                                    text: 'Tạo thành công'
+                                })
+                                window.location.href = '/login'
+                            },
+                        });
+                    }
+                },
+            });
+        }else{
+            Swal.fire({
+                icon: 'warning',
+                title: 'Oosp. Fail!!!',
+                text: 'Mật khẩu và nhập lại mật khẩu không khớp'
+            })
+        }
+    }
+</script>
+</body>
+</html>

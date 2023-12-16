@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>BlogBoard &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/quill.snow.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}"/>
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+<body id="top">
+
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+
+<div class="site-wrap">
+
+    <div th:replace="~{common/header :: header}"></div>
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('/images/hero_1.jpg');"
+             id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 class="text-white font-weight-bold">Edit a Blog</h1>
+                    <div class="custom-breadcrumbs">
+                        <a href="/">Home</a> <span class="mx-2 slash">/</span>
+                        <a href="/blog">Blog</a> <span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>Edit a Blog</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section">
+        <div class="container">
+
+            <div class="row align-items-center mb-5">
+                <div class="col-lg-8 mb-4 mb-lg-0">
+                    <div class="d-flex align-items-center">
+                        <div>
+                            <h2>Edit a Blog</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-5">
+                <div class="col-lg-12">
+                    <form enctype="multipart/form-data"
+                          class="p-4 p-md-5 border rounded"
+                          th:object="${requestNews}"
+                          method="POST"
+                          action="/edit-blog">
+                        <h3 class="text-black mb-5 border-bottom pb-2">Blog Details</h3>
+
+                        <input type="hidden" th:field="*{id}" th:value="${requestNews.id}"/>
+                        <input type="hidden" th:field="*{accountId}" th:value="${requestNews.accountId}"/>
+
+                        <div class="alert alert-warning" role="alert" th:if="${messageError != null}">
+                            <span th:text="${messageError}"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="blog-title">Blog Title</label>
+                            <input type="text" th:field="*{title}" th:value="${requestNews.title}" class="form-control"
+                                   id="blog-title">
+                            <span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="blog-title">Blog Thumbnail</label>
+                            <input type="text" th:field="*{thumbnail}" class="form-control"
+                                   id="blog-thumbnail" th:value="${requestNews.thumbnail}">
+                            <span class="text-danger" th:if="${#fields.hasErrors('thumbnail')}"
+                                  th:errors="*{thumbnail}"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="blog-content">Blog Description</label>
+                            <textarea class="content" th:field="*{content}" id="blog-content"
+                                      th:text="${requestNews.content}"></textarea>
+                            <span th:if="${#fields.hasErrors('content')}" th:errors="*{content}"
+                                  class="text-danger"></span>
+                        </div>
+
+                        <div class="text-success" th:if="${successMessage != null}" th:text="${successMessage}"></div>
+
+                        <div class="row align-items-center mb-5">
+                            <div class="col-lg-4 ml-auto">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <a href="#" type="submit" class="btn btn-block btn-light btn-md">
+                                            Preview
+                                        </a>
+                                    </div>
+                                    <div class="col-6">
+                                        <button name="" type="submit" class="btn btn-block btn-primary btn-md">
+                                            Save Blog
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div th:replace="~{common/footer :: footer}"></div>
+</div>
+
+<!-- SCRIPTS -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/stickyfill.min.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/quill.min.js}"></script>
+
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+
+<script>
+    $('#blog-content').richText();
+
+</script>
+</body>
+</html>

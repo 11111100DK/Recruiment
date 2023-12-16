@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
+
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+    <link rel="stylesheet" th:href="@{/assets/css/admin.css}">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <script th:inline="javascript">
+        var mess = /*[[${mess}]]*/ '';
+    </script>
+</head>
+<style>
+    #overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); /* Mờ với độ trong suốt 50% */
+      z-index: 1;
+    }
+
+    /* Style cho form đăng ký popup */
+    #signup-form {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 60%;
+      transform: translate(-50%, -50%);
+      padding: 20px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 2; /* Đảm bảo form nằm trên overlay */
+      border-radius: 10px;
+      width: 60%;
+    }
+</style>
+<body>
+<div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <div th:replace="~{common/partials/_navbar :: navbar}"></div>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_sidebar.html -->
+        <div th:replace="~{common/partials/_sidebar :: sidebar}"></div>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h3 class="page-title"> Accounts User </h3>
+                </div>
+                <div class="activity-grid">
+                    <div class="activity-card">
+                        <div class="activity-header row" style="margin-bottom:10px;">
+                            <form class="forms-sample" style="width:40%;" action="/admin/accountUser" enctype="multipart/form-data" method="get">
+                                <span style="margin-left:20px;" class="input-group input-group-sm">
+                                    <input type="text" placeholder="Search" name="search" class="form-control" th:value="${search}"/>
+                                    <input type="hidden" name="page" th:value="1"/>
+                                    <span class="input-group-append">
+                                        <button type="submit" style="z-index:0;" class="btn btn-info btn-flat">Tìm kiếm</button>
+                                    </span>
+                                </span>
+                            </form>
+
+                            <span class="activity-more col-2 right" id="show-signup-form" style="margin-left:400px;">
+                                <span class="mdi mdi-plus"></span>&nbsp;Thêm account
+<!--                                <a href="/amin/account/createUser" class="add">Thêm tài khoản người dùng</a>-->
+                            </span>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table_0">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>UserName</th>
+                                    <th>Role</th>
+                                    <th>Email</th>
+                                    <th>Active</th>
+                                    <th style="width:500px;">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item,index : ${listUser}">
+                                        <td th:text="${index.count + (pager.current_Page -1 ) * pager.page_Size}"></td>
+                                        <td th:text="${item.username}"></td>
+                                        <td th:text="${item.role}"> </td>
+                                        <td th:text="${item.email}"> </td>
+                                        <td th:switch="${item.status}" class="text-center" th:data-id="${item.id}" th:data-userName="${search}" th:data-page="${pager.current_Page}" onClick="banNick(this)">
+                                            <span class="badge badge-success" th:case=0>Active</span>
+                                            <span class="badge badge-danger" th:case=1>Inactive</span>
+                                        </td>
+                                        <td> <a th:href="@{/admin/profile?action=0&search={search}(search=${item.username})}">Chi tiết</a> </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="row" style="margin-left:50%;margin-top:10px;z-index=0;" th:if="${pager.total_Page > 1}">
+                            <div>
+                                <ul class="pagination justify-content-end">
+                                    <li class="page-item" th:if="${pager.current_Page != 1}">
+                                        <a class="page-link" th:href="@{/admin/accountUser(search=${search}, page=1)}">First</a>
+                                    </li>
+                                    <li class="page-item" th:if="${pager.current_Page != 1}">
+                                        <a class="page-link" th:href="@{/admin/accountUser(search=${search},page=${pager.current_Page-1})}">&lt;&lt;</a>
+                                    </li>
+
+                                    <li class="page-item" th:each="index : ${#numbers.sequence(pager.start_Page, pager.total_Page)}"
+                                        th:classappend="${index == pager.current_Page} ? 'active' : ''">
+                                        <a class="page-link" th:href="@{/admin/accountUser(search=${search}, page=${index})}" th:text="${index}"></a>
+                                    </li>
+
+                                    <li class="page-item" th:if="${pager.current_Page < pager.total_Page}">
+                                        <a class="page-link" th:href="@{/admin/accountUser(search=${search},page=${pager.current_Page+1})}">>></a>
+                                    </li>
+                                    <li class="page-item" th:if="${pager.current_Page < pager.total_Page}">
+                                        <a class="page-link" th:href="@{/admin/accountUser(search=${search},page=${pager.total_Page})}">Last</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+            <div th:replace="~{common/partials/_footer :: footer}"></div>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<div id="overlay">
+    <div id="signup-form">
+        <h2>Đăng ký</h2>
+        <!-- Thêm các trường đăng ký ở đây -->
+        <form class="forms-sample" action="/admin/account/createUser" method="post">
+            <!-- Các trường đăng ký -->
+            <div class="form-group row">
+                <label for="username" class="col-sm-3 col-form-label">Tên đăng nhập:</label>
+                <div class="col-sm-9">
+                    <input required type="text" name="username" class="form-control" id="username" placeholder="Username" value="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="email" class="col-sm-3 col-form-label">Email</label>
+                <div class="col-sm-5">
+                    <input required type="email" name="email" class="form-control" id="email" placeholder="Email" value="">
+                </div>
+                <button type="button" class="btn btn-gradient-primary me-2 col-sm-3">Send OTP</button>
+            </div>
+
+            <div class="form-group row">
+                <label for="password" class="col-sm-3 col-form-label">Password</label>
+                <div class="col-sm-9">
+                    <input required type="password" name="password" class="form-control" id="password" placeholder="Password" value="">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="confirmPassword" class="col-sm-3 col-form-label">ConfirmPassword</label>
+                <div class="col-sm-9">
+                    <input required type="password" name="confirmPassword" class="form-control" id="confirmPassword" placeholder="ConfirmPassword" value="">
+                </div>
+            </div>
+            <input type="hidden" name="role" class="form-control" id="role" value="User">
+            <button type="submit" class="btn btn-gradient-primary me-2">Đăng ký</button>
+            <button type="button" id="close-signup-form" class="btn btn-light">Cancel</button>
+        </form>
+    </div>
+</div>
+<!-- plugins:js -->
+<script th:src="@{/assets/vendors/js/vendor.bundle.base.js}"></script>
+
+<script th:src="@{/assets/js/off-canvas.js}"></script>
+<script th:src="@{/assets/js/hoverable-collapse.js}"></script>
+<script th:src="@{/assets/js/misc.js}"></script>
+<script th:src="@{/assets/js/admin.js}"></script>
+<script th:src="@{/assets/js/jquery.min.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+<script>
+    warning(mess)
+    // JavaScript để xử lý hiển thị/ẩn form đăng ký popup
+    const showSignupFormButton = document.getElementById('show-signup-form');
+    const closeSignupFormButton = document.getElementById('close-signup-form');
+    const signupForm = document.getElementById('signup-form');
+    const overlay = document.getElementById('overlay');
+
+    showSignupFormButton.addEventListener('click', () => {
+      signupForm.style.display = 'block';
+      overlay.style.display = 'block';
+    });
+
+    closeSignupFormButton.addEventListener('click', () => {
+      signupForm.style.display = 'none';
+      overlay.style.display = 'none';
+    });
+</script>
+
+</body>
+</html>

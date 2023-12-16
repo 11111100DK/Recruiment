@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Form &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="/css/custom-bs.css">
+    <link rel="stylesheet" href="/css/jquery.fancybox.min.css">
+    <link rel="stylesheet" href="/css/bootstrap-select.min.css">
+    <link rel="stylesheet" href="/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="/fonts/line-icons/style.css">
+    <link rel="stylesheet" href="/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="/css/quill.snow.css">
+
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body id="top">
+
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+
+<div class="site-wrap">
+
+    <div th:replace="~{common/header :: header}"></div>
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('images/hero_1.jpg');"
+             id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 class="text-white font-weight-bold">Admins Form</h1>
+                    <div class="custom-breadcrumbs">
+                        <a href="/">Home</a> <span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>Admins Form</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section services-section bg-light block__62849" id="next-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mt-5">
+                    <h3 class="text-center">Detail of Admin</h3>
+                    <hr>
+                </div>
+
+                <div class="col-md-12 mt-2">
+                    <div class="d-flex justify-content-between">
+                        <a href="/admin/list"
+                           class="btn btn-primary text-left">Back to Admin</a>
+                    </div>
+                </div>
+
+                <div class="col-md-12 mt-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="alert alert-warning" role="alert" th:if="${messageError != null}">
+                                <span th:text="${messageError}"></span>
+                            </div>
+
+                            <form th:action="@{/admin/form}"
+                                  th:object="${responseAdmin}"
+                                  method="POST">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>#ID</label>
+                                            <input type="text" th:field="*{id}" class="form-control" readonly disabled>
+                                        </div>
+
+                                        <div class="col-md-6">
+                                            <label>Experience Year</label>
+                                            <input type="text" th:field="*{experienceYear}" class="form-control">
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <textarea type="text" th:text="${responseAdmin.description}" rows="3"
+                                              class="form-control" name="description"></textarea>
+                                </div>
+
+                                <div class="form-group">
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Major</label>
+                                            <input type="text" th:field="*{major}" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Status</label>
+                                            <select class="form-control" name="status" th:field="*{status}"
+                                                    style="width: 100%;">
+                                                <option value=1>Active</option>
+                                                <option value=0>Inactive</option>
+                                            </select>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label>Role</label>
+                                            <input type="text" th:field="*{role}" class="form-control">
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label>Account Id</label>
+                                            <input type="text" th:field="*{accountId}" class="form-control" readonly>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" name="id" th:value="${responseAdmin.id}"/>
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{common/footer :: footer}"></div>
+</div>
+
+
+<!-- SCRIPTS -->
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/isotope.pkgd.min.js"></script>
+<script src="/js/stickyfill.min.js"></script>
+<script src="/js/jquery.fancybox.min.js"></script>
+<script src="/js/jquery.easing.1.3.js"></script>
+
+<script src="/js/jquery.waypoints.min.js"></script>
+<script src="/js/jquery.animateNumber.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/quill.min.js"></script>
+
+
+<script src="/js/bootstrap-select.min.js"></script>
+
+<script src="/js/custom.js"></script>
+</body>
+</html>

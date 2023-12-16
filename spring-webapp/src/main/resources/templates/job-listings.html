@@ -1,0 +1,415 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/quill.snow.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" th:href="@{/pagination/styles.css}" />
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body id="top">
+
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+
+<div class="site-wrap">
+
+    <div th:replace="~{common/header :: header}"></div>
+    <!-- HOME -->
+    <section class="section-hero home-section overlay inner-page bg-image"
+             style="background-image: url('/images/hero_1.jpg');" id="home-section">
+
+        <div class="container">
+            <div class="row align-items-center justify-content-center">
+                <div class="col-md-12">
+                    <div class="mb-5 text-center">
+                        <h1 class="text-white font-weight-bold">The Easiest Way To Get Your Dream Job</h1>
+                        <p>Welcome to the ultimate destination for turning your career dreams into reality!</p>
+                    </div>
+                    <form method="post" class="search-jobs-form">
+                        <div class="row mb-5">
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                <input name="title" type="text" class="form-control form-control-lg"
+                                       placeholder="Job title, Company...">
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                <select class="selectpicker" data-style="btn-white btn-lg" data-width="100%"
+                                        data-live-search="true" title="Select Region" name="region">
+                                    <option value="San">San Francisco</option>
+                                    <option value="Los">Los Angeles</option>
+                                    <option value="New">New York</option>
+                                    <option value="Seattle">Seattle</option>
+                                    <option value="Austin">Austin</option>
+                                    <option value="Chicago">Chicago</option>
+                                    <option value="Miami">Miami</option>
+                                    <option value="Mountain">Mountain View</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                <select class="selectpicker" data-style="btn-white btn-lg" data-width="100%"
+                                        data-live-search="true" title="Select Job Category" name="category">
+                                    <option value="IT">Information Technology (IT) and Computer Science</option>
+                                    <option value="healthcare">Healthcare and Medicine</option>
+                                    <option value="finance">Finance and Accounting</option>
+                                    <option value="Engineering">Engineering</option>
+                                    <option value="Education">Education</option>
+                                    <option value="Sales">Sales and Marketing</option>
+                                    <option value="Creative">Creative Arts and Design</option>
+                                    <option value="Customer">Customer Service and Support</option>
+                                    <option value="HR">Human Resources (HR) and Recruitment</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-4 mb-lg-0">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block text-white btn-search">
+                                    <span class="icon-search icon mr-2"></span>Search Job
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="row">
+                        <div class="col-md-12 popular-keywords">
+                            <h3>Trending Keywords:</h3>
+                            <ul class="keywords list-unstyled m-0 p-0">
+                                <li><a href="#" class="">UI Designer</a></li>
+                                <li><a href="#" class="">Python</a></li>
+                                <li><a href="#" class="">Developer</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <a href="#next" class="scroll-button smoothscroll">
+            <span class=" icon-keyboard_arrow_down"></span>
+        </a>
+    </section>
+
+    <section class="site-section" id="next-section" style="z-index: 0">
+        <div class="container">
+
+            <div class="row mb-5 justify-content-center">
+                <div class="col-md-7 text-center">
+                    <h2 class="section-title mb-2">Job Listed</h2>
+                </div>
+            </div>
+            <ul class="job-listings mb-5" id="list">
+                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center" th:each="job : ${job}">
+                    <a th:href="@{'/job-single/' + ${job.id}}"></a>
+                    <div class="job-listing-logo">
+                        <img th:src="@{'images/' + ${job.image}}" alt="Image" class="img-fluid">
+                    </div>
+                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                            <h2 th:text="${job.title}"></h2>
+                            <strong th:text="${job.city}"></strong>
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                            <span class="icon-room"></span> <span th:text="${job.locationDetail}"></span>
+                        </div>
+                        <div class="job-listing-meta">
+                            <span class="badge badge-success" th:text="${jobListing.job}"></span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <ul class="job-listings mb-5" >
+                <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                    <a href="/job-single"></a>
+                    <div class="job-listing-logo">
+                        <img src="images/job_logo_2.jpg" alt="Image" class="img-fluid">
+                    </div>
+
+                    <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                        <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                            <h2>Digital Marketing Director</h2>
+                            <strong>Sprint</strong>
+                        </div>
+                        <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                            <span class="icon-room"></span> Overland Park, Kansas
+                        </div>
+                        <div class="job-listing-meta">
+                            <span class="badge badge-success">Full Time</span>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="component">
+                <!-- Pagination buttons -->
+                <button id="prev">Prev</button>
+                <div id="pagination"></div>
+                <button id="next">Next</button>
+            </div>
+
+        </div>
+    </section>
+
+    <div th:replace="~{common/footer :: footer}"></div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/stickyfill.min.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/quill.min.js}"></script>
+
+
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+
+
+<script>
+
+function fetchApiRender(api) {
+	fetch(api)
+		.then(response => response.json())
+		.then(response => {
+			let htmlCode = ``;
+			let index = 0;
+			for (index = 0; index < response.payload.length; index++) {
+				htmlCode += `
+                     <li class="job-listing d-block d-sm-flex pb-3 pb-sm-0 align-items-center">
+                            <a href="/job-single?id=${response.payload[index].id}"></a>
+                            <div class="job-listing-logo">
+                                <img src="https://media.istockphoto.com/id/1279104620/photo/top-view-of-a-white-desktop-concept-job-search.jpg?s=612x612&w=0&k=20&c=Ow_kvA2wQ4rLlqX_oFHgpjLb1JMKyPQKLOPzbu6w6qw=" alt="Image" class="img-fluid">
+                            </div>
+
+                            <div class="job-listing-about d-sm-flex custom-width w-100 justify-content-between mx-4">
+                                <div class="job-listing-position custom-width w-50 mb-3 mb-sm-0">
+                                    <h2>${response.payload[index].title}</h2>
+                                    <strong style="display: inline-block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;" >${response.payload[index].description}</strong>
+                                </div>
+                                <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                                    <span class="icon-room"></span> ${response.payload[index].city}
+                                </div>
+                                <div class="job-listing-location mb-3 mb-sm-0 custom-width w-25">
+                                   ${response.payload[index].employmentStatus}
+                                </div>
+                            </div>
+                     </li>
+                `
+			}
+            const list = document.querySelector('#list');
+			list.innerHTML = htmlCode;
+
+            let data = [];
+
+			const length = list.childElementCount;
+			const collection = list.children;
+			console.log(collection[0])
+
+            for (let i = 0; i < collection.length; i++) {
+              data.push(collection[i]);
+            }
+
+			const perPage = 5;
+			let currentPage = 1;
+
+			// Get current list
+			function getPaginatedData() {
+				console.log(list);
+				const startIndex = (currentPage - 1) * perPage;
+				return data.slice(startIndex, startIndex + perPage);
+			}
+
+			// Display list
+			function displayList(items) {
+				const html = items.map(item => item.outerHTML);
+				list.innerHTML = html;
+			}
+
+			// Generate pagination buttons
+			function setupPagination(data, wrapper) {
+				wrapper.innerHTML = '';
+				const numPages = Math.ceil(length / perPage);
+
+				if (numPages < 5) {
+					for (let i = 1; i <= numPages; i++) {
+						const btn = document.createElement('button');
+						btn.innerText = i;
+						btn.classList.add('page-' + i);
+
+						if (i === currentPage) {
+							btn.classList.add('active');
+						}
+
+						btn.addEventListener('click', () => {
+							currentPage = i;
+							displayList(getPaginatedData());
+
+							document.querySelector('.active').classList.remove('active');
+							btn.classList.add('active');
+						});
+
+						wrapper.appendChild(btn);
+					}
+					return;
+				}
+
+				// Display first 2 pages dynamically
+				let start = Math.max(currentPage - 1, 1);
+				let end = Math.min(start + 2, numPages);
+
+				if (end > numPages - 2) {
+					end = numPages - 2;
+					start = numPages - 3;
+				}
+
+				// Display first 2 pages
+				for (let i = start; i <= end; i++) {
+					const btn = document.createElement('button');
+					btn.innerText = i;
+					btn.classList.add('page-' + i);
+
+					if (i === currentPage) {
+						btn.classList.add('active');
+					}
+
+					btn.addEventListener('click', () => {
+						currentPage = i;
+						displayList(getPaginatedData());
+
+						document.querySelector('.active').classList.remove('active');
+						btn.classList.add('active');
+					});
+
+					wrapper.appendChild(btn);
+				}
+
+				// Ellipsis
+				if (end < numPages - 2) {
+					let ellipsis = document.createElement('span');
+					ellipsis.innerHTML = '...';
+					wrapper.appendChild(ellipsis);
+				}
+
+				// Display last 2 pages
+				for (let i = numPages - 1; i <= numPages; i++) {
+					const btn = document.createElement('button');
+					btn.innerText = i;
+					btn.classList.add('page-' + i);
+
+					if (i === currentPage) {
+						btn.classList.add('active');
+					}
+
+					btn.addEventListener('click', () => {
+						currentPage = i;
+						displayList(getPaginatedData());
+
+						document.querySelector('.active').classList.remove('active');
+						btn.classList.add('active');
+					});
+
+					wrapper.appendChild(btn);
+				}
+			}
+
+			const listBtn = document.querySelectorAll('[class*="page-"]');
+
+			// attach listeners
+			prev.addEventListener('click', () => {
+				const numPages = Math.ceil(length / perPage);
+
+				currentPage--;
+
+				if (currentPage < 1) {
+					currentPage = 1;
+				}
+
+				displayList(getPaginatedData());
+				setupPagination(data, pagination);
+
+			})
+
+			next.addEventListener('click', () => {
+				const numPages = Math.ceil(length / perPage);
+
+				currentPage++;
+
+				if (currentPage > numPages) {
+					currentPage = numPages;
+				}
+
+				displayList(getPaginatedData());
+				setupPagination(data, pagination);
+			})
+
+			// Initial render
+			displayList(getPaginatedData());
+			setupPagination(data, pagination);
+		})
+		.catch(error => {
+			console.error('Error:', error);
+		});
+}
+
+fetchApiRender('http://localhost:8080/api/jobs/limit/1000');
+
+
+const searchForm = document.querySelector('.search-jobs-form');
+
+// Function to convert form data to JavaScript object
+function formDataToObject(formData) {
+    const data = {};
+    formData.forEach((value, key) => {
+        data[key] = value;
+    });
+    return data;
+}
+
+// Function to handle form submission
+function handleFormSubmit(event) {
+    event.preventDefault();
+
+    // Get form data
+    const formData = new FormData(searchForm);
+
+    // Convert form data to JavaScript object
+    const searchData = formDataToObject(formData);
+
+    fetchApiRender(`http://localhost:8080/api/jobs/criteria?title=${searchData.title}&region=${searchData.region}&category=${searchData.category}`)
+}
+
+// Add event listener to the form for form submission
+searchForm.addEventListener('submit', handleFormSubmit);
+
+// Generate mock data
+</script>
+
+</body>
+</html>

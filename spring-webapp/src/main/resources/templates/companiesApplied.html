@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/quill.snow.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .site-section{
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+        .mb-5, .my-5{
+            margin-bottom: 0!important;
+        }
+        hr{
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body id="top">
+
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+
+<div class="site-wrap">
+
+    <div th:replace="~{common/header :: header}"></div>
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('/images/hero_1.jpg');"
+             id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-white font-weight-bold">Hồ sơ cá nhân</h1>
+                    <div class="custom-breadcrumbs">
+                        <a href="/">Home</a> <span class="mx-2 slash">/</span>
+                        <a href="/ManageAccount">View Profile</a> <span
+                            class="mx-2 slash">/</span>
+                        <a href="/profileUser">Edit Profile</a> <span class="mx-2 slash">/</span>
+                        <a href="/companiesApplied"><span class="text-white"><strong>Applied List</strong></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section" id="next">
+        <div class="container" >
+            <ul class="job-listings mb-5">
+<!--                <li >-->
+<!--                    <div class="row align-items-center mb-5">-->
+<!--                        <div class="col-lg-8 mb-4 mb-lg-0">-->
+<!--                            <div class="d-flex align-items-center">-->
+<!--                                <div class="border p-2 d-inline-block mr-3 rounded">-->
+<!--                                    <img th:src="infoApply.logo" alt="Image">-->
+<!--                                </div>-->
+<!--                                <div>-->
+<!--                                    <h2 th:text="${infoApply.companyName}">Company Name</h2>-->
+<!--                                    <div>-->
+<!--                                        <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>Adidas</span>-->
+<!--                                        <span class="m-2"><span class="icon-room mr-2"></span>New York City</span>-->
+<!--                                        <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-primary" th:date="${infoApply.appliedDate}">Applied Date</span></span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="col-lg-4">-->
+<!--                            <div class="row">-->
+<!--                                <div class="col-6">-->
+<!--&lt;!&ndash;                                    <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>&ndash;&gt;-->
+<!--                                </div>-->
+<!--                                <div class="col-6">-->
+<!--                                    <a href="#" class="btn btn-danger btn-primary btn-md">Cancel Apply</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <hr>-->
+<!--                </li>-->
+                <li>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-lg-8 mb-4 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div class="border p-2 d-inline-block mr-3 rounded">
+                                    <img src="images/job_logo_1.jpg" alt="Image">
+                                </div>
+                                <div>
+                                    <h2>Product Designer</h2>
+                                    <div>
+                                        <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>Adidas</span>
+                                        <span class="m-2"><span class="icon-room mr-2"></span>New York City</span>
+                                        <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-primary">Full Time</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-6">
+<!--                                    <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>-->
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="btn btn-danger btn-primary btn-md">Cancel Apply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+
+                <li>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-lg-8 mb-4 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div class="border p-2 d-inline-block mr-3 rounded">
+                                    <img src="images/job_logo_1.jpg" alt="Image">
+                                </div>
+                                <div>
+                                    <h2>Product Designer</h2>
+                                    <div>
+                                        <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>Adidas</span>
+                                        <span class="m-2"><span class="icon-room mr-2"></span>New York City</span>
+                                        <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-primary">Full Time</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-6">
+<!--                                    <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>-->
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="btn btn-danger btn-primary btn-md">Cancel Apply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+
+                <li>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-lg-8 mb-4 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div class="border p-2 d-inline-block mr-3 rounded">
+                                    <img src="images/job_logo_1.jpg" alt="Image">
+                                </div>
+                                <div>
+                                    <h2>Product Designer</h2>
+                                    <div>
+                                        <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>Adidas</span>
+                                        <span class="m-2"><span class="icon-room mr-2"></span>New York City</span>
+                                        <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-primary">Full Time</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-6">
+<!--                                    <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>-->
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="btn btn-danger btn-primary btn-md">Cancel Apply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+
+                <li>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-lg-8 mb-4 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div class="border p-2 d-inline-block mr-3 rounded">
+                                    <img src="images/job_logo_1.jpg" alt="Image">
+                                </div>
+                                <div>
+                                    <h2>Product Designer</h2>
+                                    <div>
+                                        <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>Adidas</span>
+                                        <span class="m-2"><span class="icon-room mr-2"></span>New York City</span>
+                                        <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-primary">Full Time</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-6">
+<!--                                    <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>-->
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="btn btn-danger btn-primary btn-md">Cancel Apply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+                <li>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-lg-8 mb-4 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div class="border p-2 d-inline-block mr-3 rounded">
+                                    <img src="images/job_logo_1.jpg" alt="Image">
+                                </div>
+                                <div>
+                                    <h2>Product Designer</h2>
+                                    <div>
+                                        <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>Adidas</span>
+                                        <span class="m-2"><span class="icon-room mr-2"></span>New York City</span>
+                                        <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-primary">Full Time</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-6">
+<!--                                    <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Save Job</a>-->
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="btn btn-danger btn-primary btn-md">Cancel Apply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+                <li>
+                    <div class="row align-items-center mb-5">
+                        <div class="col-lg-8 mb-4 mb-lg-0">
+                            <div class="d-flex align-items-center">
+                                <div class="border p-2 d-inline-block mr-3 rounded">
+                                    <img src="images/job_logo_1.jpg" alt="Image">
+                                </div>
+                                <div>
+                                    <h2>Product Designer</h2>
+                                    <div>
+                                        <span class="ml-0 mr-2 mb-2"><span class="icon-briefcase mr-2"></span>Adidas</span>
+                                        <span class="m-2"><span class="icon-room mr-2"></span>New York City</span>
+                                        <span class="m-2"><span class="icon-clock-o mr-2"></span><span class="text-primary">Full Time</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="row">
+                                <div class="col-6">
+<!--                                    <a href="#" class="btn btn-block btn-light btn-md"><span class="icon-heart-o mr-2 text-danger"></span>Edit </a>-->
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" class="btn btn-danger btn-primary btn-md">Cancel Apply</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </li>
+            </ul>
+            <div class="row pagination-wrap">
+                <div class="col-md-6 text-center text-md-left mb-4 mb-md-0">
+                    <span>Showing 1-7 Of 22,392 Jobs</span>
+                </div>
+                <div class="col-md-6 text-center text-md-right">
+                    <div class="custom-pagination ml-auto">
+                        <a href="#" class="prev">Prev</a>
+                        <div class="d-inline-block">
+                            <a href="#" class="active">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                        </div>
+                        <a href="#" class="next">Next</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <section class="pt-5 bg-image overlay-primary fixed overlay" style="background-image: url('images/hero_1.jpg');">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 align-self-center text-center text-md-left mb-5 mb-md-0">
+                    <h2 class="text-white">Get The Mobile Apps</h2>
+                    <p class="mb-5 lead text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit tempora
+                        adipisci impedit.</p>
+                    <p class="mb-0">
+                        <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span
+                                class="icon-apple mr-3"></span>App Store</a>
+                        <a href="#" class="btn btn-dark btn-md px-4 border-width-2"><span
+                                class="icon-android mr-3"></span>Play Store</a>
+                    </p>
+                </div>
+                <div class="col-md-6 ml-auto align-self-end">
+                    <img src="images/apps.png" alt="Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{common/header :: header}"></div>
+</div>
+<!-- SCRIPTS -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/stickyfill.min.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/quill.min.js}"></script>
+
+
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+
+<script th:src="@{/js/custom.js}"></script>
+</body>
+</html>

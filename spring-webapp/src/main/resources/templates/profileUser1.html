@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit profile</title>
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/quill.snow.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        #title{
+            font-size: 40px;
+            font-weight: bolder;
+            color: #007bff;
+        }
+        .site-section{padding-top: 0; padding-bottom: 0}
+        .file-upload{display:block;text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 18px;}
+        .file-upload .file-select{display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+        .file-upload .file-select .file-select-button{background:#dce4ec;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+        .file-upload .file-select .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+        .file-upload .file-select:hover{border-color:#34495e;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+        .file-upload .file-select:hover .file-select-button{background:#34495e;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+        .file-upload.active .file-select{border-color:#3fa46a;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+        .file-upload.active .file-select .file-select-button{background:#3fa46a;color:#FFFFFF;transition:all .2s ease-in-out;-moz-transition:all .2s ease-in-out;-webkit-transition:all .2s ease-in-out;-o-transition:all .2s ease-in-out;}
+        .file-upload .file-select input[type=file]{z-index:100;cursor:pointer;position:absolute;height:100%;width:100%;top:0;left:0;opacity:0;filter:alpha(opacity=0);}
+        .file-upload .file-select.file-select-disabled{opacity:0.65;}
+        .file-upload .file-select.file-select-disabled:hover{cursor:default;display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:40px;line-height:40px;margin-top:5px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
+        .file-upload .file-select.file-select-disabled:hover .file-select-button{background:#dce4ec;color:#666666;padding:0 10px;display:inline-block;height:40px;line-height:40px;}
+        .file-upload .file-select.file-select-disabled:hover .file-select-name{line-height:40px;display:inline-block;padding:0 10px;}
+    </style>
+
+</head>
+<body id="top" >
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<div class="site-wrap">
+    <div th:replace="~{common/header :: header}"></div>
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('/images/hero_1.jpg');"
+             id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-white font-weight-bold">Hồ sơ cá nhân</h1>
+                    <div class="custom-breadcrumbs">
+                        <a href="/">Home</a> <span class="mx-2 slash">/</span>
+                        <a href="/ManageAccount">View Profile</a> <span class="mx-2 slash">/</span>
+                        <a href="/profileUser"><span class="text-white"><strong> Edit Profile</strong></span></a> <span class="mx-2 slash">/</span>
+                        <a href="/companiesApplied">Applied List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section">
+
+        <div class="container rounded bg-white mt-5">
+            <div class="row">
+                <div class="col-md-4 border-right">
+<!--                    <div class="d-flex flex-column align-items-center text-center p-3 py-5">-->
+                    <img src="https://www.freeiconspng.com/uploads/profile-icon-9.png" id="imagePreview" width="350" alt="Png Save Profile" /></a>
+<!--                        <span class="font-weight-bold" th:text="${candidate.fullName}"></span>-->
+<!--                        <span class="text-black-50" th:text="${candidate.fullName}"></span>-->
+<!--                        <span class="country" th:text="${candidate.country}"></span>-->
+<!--                    </div>-->
+                </div>
+                <div class="col-md-8">
+                    <div class="p-3 py-5">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+
+                            <h6 class="text-right" id="title">Edit Profile</h6>
+                        </div>
+                        <form method="post" id="myForm">
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label for="fullname">Full name</label>
+                                    <input type="text" id="fullname" class="form-control" placeholder="Full name" name="fullName" th:value="${account.fullName}"  required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="nickname">Nick name</label>
+                                    <input type="text" id="nickname" class="form-control"  placeholder="Nick name" name="nickname" required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="email">Email</label>
+                                    <input type="text" id="email" class="form-control" placeholder="Email" name="email" th:value="${account.email}"  required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phoneNumber">Phone number</label>
+                                    <input type="text" id="phoneNumber" class="form-control"  placeholder="Phone number" name="phoneNumber" th:value="${account.phoneNumber}" required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="address">Address</label>
+                                    <input type="text" id="address" class="form-control" placeholder="address" name="address" th:value="${account.address}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="country">Country</label>
+                                    <input type="text" id="country" class="form-control"  placeholder="Country" name="country" required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-6">
+                                    <label for="major">Major</label>
+                                    <input type="text" id="major" class="form-control" placeholder="Major" name="major" th:value="${account.address}"  required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="experienceYear">Experience Year</label>
+                                    <input type="number" id="experienceYear" class="form-control"  placeholder="Experience year" name="experienceYear" required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <label for="service">Service</label>
+                                    <input type="text" id="service" class="form-control" placeholder="Service" name="service"  required>
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control" id="description" placeholder="Description" rows="5" name="description" required></textarea></div>
+                            </div>
+                            <div class="mt-5 text-right">
+                                <input id="saveProfile" class="btn btn-primary profile-button" type="submit" value="Save Profile">
+                            </div>
+
+                        </form>
+
+                        <form id="cvAvatarForm" enctype="multipart/form-data" method="post">
+                            <div class="row mt-3">
+                                <label for="email">Email</label>
+                                <input type="text" id="email1" class="form-control" placeholder="Email" name="email"  th:value="${account.email}" required>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <label for="description" >Upload Your CV</label>
+                                    <div id="previewContent"></div>
+                                    <input type="file" id="chooseFile" class="form-control" name="cv">
+                                </div>
+                            </div>
+                            <div class="row mt-3">
+                                <div class="col-md-12">
+                                    <label for="description">Upload Your Avata</label>
+                                    <input type="file" id="chooseFile1" class="form-control" name="avata">
+                                </div>
+                            </div>
+                            <div class="mt-5 text-right">
+                                <input id="saveCvAndAvatar" class="btn btn-primary profile-button" type="submit" value="Save Profile">
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div th:replace="~{common/footer :: footer}"></div>
+
+</div>
+<!-- SCRIPTS -->
+
+<script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/stickyfill.min.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/quill.min.js}"></script>
+
+
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+
+<script th:src="@{/js/custom.js}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+<!-- Include mammoth.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.0.4/mammoth.browser.min.js"></script>
+
+<script>
+    //PDF
+    document.getElementById('chooseFile').addEventListener('change', function (event) {
+    const input = event.target;
+
+    if (input.files && input.files[0]) {
+        const file = input.files[0];
+
+        if (file.type === 'application/pdf') {
+            // Nếu là PDF
+            displayPdf(file);
+        }else {
+            this.value=''
+            alert('Chỉ nhận PDF.');
+            document.getElementById('previewContent').innerHTML = '';
+        }
+    }
+});
+
+function displayPdf(file) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+        const pdfData = new Uint8Array(e.target.result);
+        // Sử dụng pdf.js để hiển thị PDF
+        pdfjsLib.getDocument({ data: pdfData }).promise.then(function (pdf) {
+            // Hiển thị trang đầu tiên của PDF
+            pdf.getPage(1).then(function (page) {
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                const viewport = page.getViewport({ scale: 1.0 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+
+                const renderContext = {
+                    canvasContext: context,
+                    viewport: viewport
+                };
+
+                page.render(renderContext).promise.then(function () {
+                    document.getElementById('previewContent').innerHTML = '';
+                    document.getElementById('previewContent').appendChild(canvas);
+                });
+            });
+        });
+    };
+
+    reader.readAsArrayBuffer(file);
+}
+
+    //Image
+        document.getElementById('chooseFile1').addEventListener('change', function() {
+            previewImage(this);
+        });
+
+        // Hiển thị ảnh được chọn
+        function previewImage(input) {
+            var preview = document.getElementById('imagePreview');
+            var file = input.files[0];
+
+            // Kiểm tra xem người dùng đã chọn ảnh hay chưa
+            if (file) {
+                var reader = new FileReader();
+
+                // Đọc dữ liệu ảnh và hiển thị nó trong thẻ img
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                };
+
+                // Đọc dữ liệu ảnh dưới dạng URL dữ liệu
+                reader.readAsDataURL(file);
+            } else {
+                // Nếu không có ảnh nào được chọn, hiển thị một ảnh mặc định hoặc ẩn ảnh
+                preview.src = 'https://www.freeiconspng.com/uploads/profile-icon-9.png';
+                input.value=''
+            }
+        }
+
+
+
+
+    function serializeForm(form) {
+        const formData = new FormData(form);
+        const serialized = {};
+        for (let [key, value] of formData.entries()) {
+            serialized[key] = value;
+        }
+        serialized.id = 0
+        return serialized;
+    }
+
+    function serializeForm2(form) {
+        const formData = new FormData(form);
+        const serialized = {};
+        for (let [key, value] of formData.entries()) {
+            serialized[key] = value;
+        }
+        return serialized;
+    }
+
+    // Get the form element by its ID
+    const form = document.getElementById('myForm');
+
+    // Function to serialize form data into a JavaScript object
+
+
+    // Event listener for form submission
+    form.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting traditionally
+        // Serialize form data into an object
+        const formDataObject = serializeForm(form);
+
+
+        console.log(JSON.stringify(formDataObject))
+        fetch('http://localhost:8080/api/candidate/saveCandidates',{
+            method: 'POST', // or 'PUT' or 'PATCH' depending on your API endpoint requirements
+            headers: {
+                'Content-Type': 'application/json', // Specify content type as JSON
+            },
+            body: JSON.stringify(formDataObject), // Convert object to JSON string
+        })
+            .then(response => response.json()) // Parse the JSON response from the API
+            .then(data => {
+                // Handle the API response data here
+                console.log(data);
+            })
+            .catch(error => {
+                // Handle errors here
+                // console.error('Error:', error);
+            });
+    });
+
+    const formCV = document.getElementById('cvAvatarForm');
+    formCV.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Create FormData
+        const formData = new FormData(formCV);
+
+        const options = {
+            method: "POST",
+            body: formData,
+
+        }
+        const email123 = document.getElementById("email1").value
+        console.log(email123)
+        const link = `http://localhost:8080/api/candidate/saveCandidateFile`
+
+        fetch(link, options)
+            .then(response => response.json()) // Parse the JSON response from the API
+            .then(data => {
+                // Handle the API response data here
+                alert("update CV and avatar successfully.")
+
+                console.log(data);
+            })
+            .catch(error => {
+                // Handle errors here
+                // console.error('Error:', error);
+            });
+    });
+</script>
+</body>
+</html>

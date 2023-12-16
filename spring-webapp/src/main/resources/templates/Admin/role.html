@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
+
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+    <link rel="stylesheet" th:href="@{/assets/css/admin.css}">
+    <script th:inline="javascript">
+        var mess = /*[[${mess}]]*/ '';
+    </script>
+</head>
+<body>
+<div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <div th:replace="~{common/partials/_navbar :: navbar}"></div>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_sidebar.html -->
+        <div th:replace="~{common/partials/_sidebar :: sidebar}"></div>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h3 class="page-title"> Role </h3>
+                </div>
+                <div class="activity-grid">
+                    <div class="activity-card">
+                        <div class="activity-header row">
+                            <form class="forms-sample" style="width:40%;" action="/admin/role" enctype="multipart/form-data" method="get">
+                                <span style="margin-left:20px;" class="input-group input-group-sm">
+                                    <input type="text" placeholder="Search" name="name" class="form-control" th:value="${name}"/>
+                                    <span class="input-group-append">
+                                        <button type="submit" class="btn btn-info btn-flat">Tìm kiếm</button>
+                                    </span>
+                                </span>
+                            </form>
+
+                            <span class="activity-more col-2 right" style="margin-left:400px;">
+                                <span class="mdi mdi-plus"></span>&nbsp;
+                                <a href="/admin/role/addRole" class="add">Thêm quyền</a>
+                            </span>
+                        </div>
+                        <table class="table table_0">
+                            <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>RoleName</th>
+                                <th>Delete</th>
+                                <th style="width:500px;">Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item,index : ${listRole}">
+                                <td th:text="${index.count}"></td>
+                                <td th:text="${item.name}"></td>
+                                <td>
+                                    <span th:unless="${item.name.equals('admin') ||item.name.equals('Admin')}" th:attr="data-id=${item.id}" onclick="deleteItem(this)" class="btn btn-sm btn-danger"><i class="mdi mdi-close-octagon"></i></span>
+                                </td>
+                                <td> <a th:href="@{/admin/role/detailRole/{id}(id=${item.id})}">Xem chi tiết</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+            <div th:replace="~{common/partials/_footer :: footer}"></div>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script th:src="@{/assets/vendors/js/vendor.bundle.base.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+<script th:src="@{/assets/js/off-canvas.js}"></script>
+<script th:src="@{/assets/js/hoverable-collapse.js}"></script>
+<script th:src="@{/assets/js/misc.js}"></script>
+<script th:src="@{/assets/js/admin.js}"></script>
+<script>
+    warning(mess)
+</script>
+
+</body>
+</html>

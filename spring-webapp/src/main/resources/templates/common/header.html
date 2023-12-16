@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+    <meta name="author" content="Free-Template.co"/>
+    <link rel="shortcut icon" href="ftco-32x32.png">
+
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/quill.snow.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<header th:fragment="header">
+    <div class="site-mobile-menu site-navbar-target">
+        <div class="site-mobile-menu-header">
+            <div class="site-mobile-menu-close mt-3">
+                <span class="icon-close2 js-menu-toggle"></span>
+            </div>
+        </div>
+        <div class="site-mobile-menu-body"></div>
+    </div> <!-- .site-mobile-menu -->
+
+    <div class="site-navbar mt-3">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="site-logo col-6"><a href="/">JobBoard</a></div>
+
+                <nav class="mx-auto site-navigation">
+                    <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="/job-list">Jobs</a></li>
+                        <li><a href="/recruiter_listings">Recruiter</a></li>
+                        <li class="has-children">
+                            <a href="/blog">Blog</a>
+                            <ul class="dropdown">
+                                <li><a href="/blog">Blogs</a></li>
+                                <li><a href="/personal-blog">Your Blogs</a></li>
+                                <li><a href="/post-blog">Post a blog</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/contact">Contact</a></li>
+                        <!-- Ẩn nút "Post a Job" khi đã đăng nhập -->
+                        <!--                        <li th:if="${role != null && !role.equals('User')}" class="d-lg-none"><a href="/post-job"><span class="mr-2">+</span> Post a Job</a></li>-->
+
+                        <!-- Ẩn nút "Log In" khi đã đăng nhập -->
+                        <li th:if="${username == null}" class="d-lg-none"><a href="/login">Log In</a></li>
+
+                        <!-- Ẩn nút "Register" khi đã đăng nhập -->
+                        <li th:if="${username == null}" class="d-lg-none"><a href="/register">Register</a></li>
+
+                        <!-- Hiển thị thông tin "username" khi đã đăng nhập -->
+                        <li th:if="${username != null}" class="d-lg-none"><a href="/logout">Đăng xuất</a></li>
+                    </ul>
+                </nav>
+
+                <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
+                    <div class="ml-auto">
+                        <a href="#" th:if="${username != null}" id="btn" onClick="test()"  class="btn btn-primary border-width-2">Menu</a>
+                        <!--                        <a th:if="${username != null && role != null && !role.equals('User')}" href="/post-job" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block"><span-->
+                        <!--                                class="mr-2 icon-add"></span>Post a Job</a>-->
+                        <a th:if="${username == null}" href="/login" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                                class="mr-2 icon-lock_outline"></span>Log In</a>
+                        <a th:if="${username == null}" href="/register" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                                class="mr-2 icon-lock_outline"></span>Register</a>
+                        <a th:if="${username != null}" href="/logout" class="btn btn-primary border-width-2 d-none d-lg-inline-block"><span
+                                class="mr-2 icon-lock_outline">Đăng xuất</span></a>
+                    </div>
+                    <a href="/" class="site-menu-toggle js-menu-toggle d-inline-block d-xl-none mt-lg-2 ml-3"><span
+                            class="icon-menu h3 m-0 p-0 mt-2"></span></a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" style="display: none;
+                              position: fixed;
+                              top: 0;
+                              left: 0;
+                              width: 100%;
+                              height: 100%;
+                              background-color: rgba(0, 0, 0, 0.5);
+                              z-index: 100;">
+        <div id="signup-form" style="display: none;
+                                      position: fixed;
+                                      top: 50%;
+                                      left: 50%;
+                                      transform: translate(-50%, -50%);
+                                      padding: 20px;
+                                      background-color: #fff;
+                                      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                                      z-index: 101; /* Đảm bảo form nằm trên overlay */
+                                      border-radius: 10px;
+                                      width: 40%;
+                                      overflow: auto;
+                                      height: 65%; ">
+            <h2>Menu</h2>
+            <div class="ml-auto row flex-column">
+                <a th:if="${role != null && !role.equals('User')}" href="/post-job" class="btn btn-primary border-width-2 col"><span
+                        class="mr-2 icon-add"></span>Post a Job</a>
+                <a th:href="@{/profileUser}" class="btn btn-primary border-width-2 col">
+                    Profile
+                </a>
+                <a th:if="${role != null && role.equals('Admin')}" th:href="@{/admin/index}" class="btn btn-primary border-width-2 d-none d-lg-inline-block col">
+                    Dashboard
+                </a>
+                <button type="button" id="close-signup-form" class="btn btn-light col">Cancel</button>
+            </div>
+            </form>
+        </div>
+    </div>
+
+</header>
+
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/stickyfill.min.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/quill.min.js}"></script>
+
+
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+
+<script th:src="@{/js/custom.js}"></script>
+
+</body>
+</html>

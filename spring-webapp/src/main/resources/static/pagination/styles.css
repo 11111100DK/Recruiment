@@ -1,0 +1,58 @@
+#list {
+    list-style: none;
+    padding: 0;
+}
+
+.component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px 0;
+}
+
+#pagination {
+    margin: 0 10px;
+}
+
+#pagination button {
+    height: 32px;
+    width: 32px;
+    font-size: 16px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#pagination button:not(:last-child) {
+    margin-right: 8px;
+}
+
+#pagination button:hover {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+#pagination button.active {
+    background: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+#prev,
+#next {
+    display: inline-block;
+    padding: 8px 16px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#prev:hover,
+#next:hover {
+    background: #007bff;
+    color: #fff;
+}

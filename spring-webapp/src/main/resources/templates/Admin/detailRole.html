@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Purple Admin</title>
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{/assets/vendors/mdi/css/materialdesignicons.min.css}">
+    <link rel="stylesheet" th:href="@{/assets/vendors/css/vendor.bundle.base.css}">
+
+    <link rel="stylesheet" th:href="@{/assets/css/style.css}">
+    <!-- End layout styles -->
+    <link rel="shortcut icon" th:href="@{/assets/images/favicon.ico}" />
+    <link rel="stylesheet" th:href="@{/assets/css/admin.css}">
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
+    <script th:inline="javascript">
+        var mess = /*[[${mess}]]*/ '';
+    </script>
+</head>
+<body>
+<div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <div th:replace="~{common/partials/_navbar :: navbar}"></div>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+        <!-- partial:../../partials/_sidebar.html -->
+        <div th:replace="~{common/partials/_sidebar :: sidebar}"></div>
+        <!-- partial -->
+        <div class="main-panel">
+            <div class="content-wrapper">
+                <div class="page-header">
+                    <h3 class="page-title"> Detail Role </h3>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 grid-margin stretch-card">
+                        <div class="card">
+                            <div class="card-body">
+                                <form class="forms-sample" action="/admin/role/editRole" enctype="multipart/form-data" th:object="${role}" method="post">
+                                    <input type="hidden" name="id" th:value="${role.id}">
+                                    <div class="form-group row">
+                                        <label for="name" class="col-sm-3 col-form-label">RoleName</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="name" class="form-control" id="name" placeholder="RoleName" th:value="${role.name}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Account_User_manage</label>
+                                        <div class="col-sm-9 row">
+                                            <div class="form-check form-check-inline col-sm-5">
+                                                <input class="form-check-input" th:checked="${role.account_manage == 0}" type="radio" name="account_manage" value="0">
+                                                <label class="form-check-label">Không được truy cập</label>
+                                            </div>
+                                            <div class="form-check form-check-inline col-sm-5">
+                                                <input class="form-check-input" th:checked="${role.account_manage == 1}" type="radio" name="account_manage" value="1">
+                                                <label class="form-check-label">Được truy cập</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Account_Admin_manage</label>
+                                        <div class="col-sm-9 row">
+                                            <div class="form-check form-check-inline col-sm-5">
+                                                <input class="form-check-input" th:checked="${role.admin_manage == 0}" type="radio" name="admin_manage" value="0">
+                                                <label class="form-check-label" >Không được truy cập</label>
+                                            </div>
+                                            <div class="form-check form-check-inline col-sm-5">
+                                                <input class="form-check-input" th:checked="${role.admin_manage == 1}" type="radio" name="admin_manage" value="1">
+                                                <label class="form-check-label" >Được truy cập</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="col-sm-3 col-form-label">Role_manage</label>
+                                        <div class="col-sm-9 row">
+                                            <div class="form-check form-check-inline col-sm-5">
+                                                <input class="form-check-input" th:checked="${role.role_manage == 0}" type="radio" name="role_manage" value="0">
+                                                <label class="form-check-label" >Không được truy cập</label>
+                                            </div>
+                                            <div class="form-check form-check-inline col-sm-5">
+                                                <input class="form-check-input" th:checked="${role.role_manage == 1}" type="radio" name="role_manage" value="1">
+                                                <label class="form-check-label" >Được truy cập</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-gradient-primary me-2" th:attr="disabled=${role.name.equals('admin') ||role.name.equals('Admin')}">Submit</button>
+                                    <a href="/admin/role?name=" class="btn btn-light">Cancel</a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- content-wrapper ends -->
+            <!-- partial:../../partials/_footer.html -->
+            <div th:replace="~{common/partials/_footer :: footer}"></div>
+            <!-- partial -->
+        </div>
+        <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+</div>
+<!-- container-scroller -->
+<!-- plugins:js -->
+<script th:src="@{/assets/vendors/js/vendor.bundle.base.js}"></script>
+
+<script th:src="@{/assets/js/off-canvas.js}"></script>
+<script th:src="@{/assets/js/hoverable-collapse.js}"></script>
+<script th:src="@{/assets/js/misc.js}"></script>
+<script th:src="@{/assets/js/admin.js}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
+<script>
+    warning(mess)
+</script>
+</body>
+</html>

@@ -1,0 +1,689 @@
+
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/quill.snow.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+
+    <style>
+        .modal-backdrop.fade.show {
+            display: none !important;
+        }
+
+        .like.active i {
+            color: red;
+        }
+
+        .show-reply,
+        .hide-reply {
+            display: none;
+        }
+
+        span.show-reply.active {
+            display: inline-block;
+        }
+        span.hide-reply.active {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body id="top">
+
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+
+<div class="site-wrap">
+    <div th:replace="~{common/header :: header}"></div>
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image mb-5" style="background-image: url('/images/hero_1.jpg');" id="home-section">
+        <div class="container" th:each="prop : ${blog}">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="custom-breadcrumbs mb-0">
+                        <span class="slash">Posted by</span> Admin</a>
+                        <span class="mx-2 slash">&bullet;</span>
+                        <span><strong th:text="'Date updated: ' + ${prop.dateUpdated}" class="text-white"></strong></span>
+                    </div>
+                    <h1 th:text="${prop.title}" class="text-white mt-4"></h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section" id="next-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 blog-content">
+
+                    <div th:each="prop : ${blog}">
+                        <div th:utext="${prop.content}"></div>
+                    </div>
+
+                    <div class="comment-form-wrap pt-5">
+                        <h3 class="mb-5">Leave a comment</h3>
+                        <form onsubmit="saveComment(event)" method="POST" th:each="prop : ${blog}">
+                            <input type="hidden" name="newsId" th:value="${prop.id}"/>
+                            <div class="form-group">
+                                <label for="message">Your comment</label>
+                                <textarea name="content" id="message" cols="30" rows="3" class="form-control"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary btn-md">Save</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="pt-5">
+                        <ul id="comment-list" class="comment-list" th:if="${comments != null}">
+
+                        </ul>
+                        <!-- END comment-list -->
+                    </div>
+
+                </div>
+                <div class="col-lg-4 sidebar pl-lg-5">
+                    <div class="sidebar-box">
+                        <div class="list-group">
+                            <h3><a href="/blog/popular" alt="Most watch link" style="color: black; text-decoration: none">Most Watch</a></h3>
+                            <div class="most-view-blog" th:each="mostView : ${listMostView}">
+                                <a th:href="'/blog-detail?id='+${mostView.id}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-between">
+                                        <img style="width: 110; height: 66px; object-fit: cover; margin-right: 10px" th:src="${mostView.thumbnail}" alt="Image blog"/>
+                                        <h6 class="mb-1" th:text="${mostView.title}">List group item heading</h6>
+                                    </div>
+                                    <small th:text="${mostView.dateUpdated}">3 days ago</small>
+                                </a>
+                                <hr />
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="~{common/footer :: footer}"></div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/stickyfill.min.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/quill.min.js}"></script>
+
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+
+<script th:src="@{/js/custom.js}"></script>
+
+<script>
+
+function handleEditComment(event) {
+  event.preventDefault(); // Prevent the form from submitting and refreshing the page
+
+  const form = event.target;
+  const formData = new FormData(form);
+  const data = {};
+
+  for (let [key, value] of formData.entries()) {
+    data[key] = value;
+  }
+
+  const options = {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  };
+
+  fetchComments(`http://localhost:8080/api/comments/${data.id}`, options)
+    .then(data => {
+      // Handle the response data
+      handleRenderComments(currentNewsId, 1000, 2)
+      console.log(data);
+      $(`#modalEdit${data.payload.id}`).modal('hide');
+    })
+    .catch(error => {
+      // Handle any errors
+      console.error('Error:', error);
+    });
+}
+
+
+
+const url = window.location.href;
+
+// Create a URL object
+const urlObj = new URL(url);
+
+// Get the search parameters from the URL
+const searchParams = new URLSearchParams(urlObj.search);
+
+// Get the value of the 'id' parameter
+let currentNewsId = searchParams.get('id');
+
+window.onload = handleRenderComments(currentNewsId, 1000, 2);
+
+function handleRenderComments(newsId, limit, currentAccountId) {
+    console.log(currentNewsId);
+
+  fetchComments(`http://localhost:8080/api/comments/newsId/${newsId}/${limit}`)
+    .then(data => {
+      // Handle the response data
+      console.log(data.payload);
+
+      const commentList = document.getElementById('comment-list');
+      let html = "";
+      html+=`
+          ${data.payload.length > 0 ? `
+              <li>
+                  <h3
+                       class="mb-5">
+                       <span>${data.payload.length}</span> Comments
+                   </h3>
+              </li>
+          ` : ""}
+      `
+
+      data.payload.forEach(comment => {
+        html += `
+            <li class="comment">
+            <div class="vcard bio">
+                <img src="images/person_5.jpg" alt="Image placeholder">
+            </div>
+            <div class="comment-body">
+                <h3>${comment.accountUsername}</h3>
+                <div class="meta">${comment.dateUpdated}</div>
+                <p style="margin: 0" >${comment.content}</p>
+
+                <span style="margin-right: 5px; cursor:pointer;" class="like" likeStatus="false" commentId="${comment.id}">
+                    <i class="fa-regular fa-thumbs-up"></i>
+                    <span>${comment.likeNumber}</span>
+                </span>
+
+                <span class="reply-comment"
+                      style="color: black; font-size: 13px; margin-right: 5px; cursor: pointer; text-decoration: none;"
+                      data-toggle="modal" data-target="#modalReply${comment.id}"
+                >
+                    Reply
+                </span>
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalReply${comment.id}" tabindex="-1" role="dialog" aria-labelledby="modalReplyEdit" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalReplyEdit">Add reply</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form onsubmit="handleReply(event)">
+                                    <input type="hidden" name="id" value="0"/>
+                                    <input type="hidden" name="newsId" value="${newsId}"/>
+                                    <input type="hidden" name="parentCommentId" value="${comment.id}"/>
+                                    <input type="hidden" name="accountId" value="2"/>
+                                    <div class="form-group">
+                                        <textarea name="content" cols="30" rows="3" class="form-control"></textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <button type="submit"
+                                                class="btn btn-primary"
+                                                onclick="handleClose(${comment.id})"
+                                        >Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <span class="show-reply active"
+                      commentId="${comment.id}"
+                      style="color: black; font-size: 13px; margin-right: 5px; cursor: pointer; text-decoration: none;"
+                      onclick="handleShowHideReplyBtn(event)"
+                >
+                    Show Reply
+                </span>
+
+                <span class="hide-reply"
+                      th:commentId="hide-reply-${comment.id}"
+                      style="color: black; font-size: 13px; margin-right: 5px; cursor: pointer; text-decoration: none;"
+                      onclick="handleReplyBtn(event); handleHideReply(event)"
+                >
+                    Hide Reply
+                </span>
+
+                ${comment.accountId == currentAccountId ?
+                  `<span style="color: black; font-size: 13px; margin-right: 5px; cursor: pointer"
+                  data-toggle="modal" data-target="#modalDelete${comment.id}">
+                      Delete
+                  </span>` : ""}
+
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalDelete${comment.id}" tabindex="-1" role="dialog" aria-labelledby="example-title" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="example-title">Confirm Delete</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <h3>Do you want to delete this news?</h3>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-primary">
+                                    <span onclick="handleDeleteComment(${comment.id})" style="color: white">Yes</a>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                ${comment.accountId == currentAccountId ?
+                  `<span style="color: black; font-size: 13px; margin-right: 5px; cursor: pointer" data-toggle="modal" data-target="#modalEdit${comment.id}">
+                    Edit comment
+                  </span>` : ""}
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalEdit${comment.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 100">
+                    <div class="modal-dialog modal-dialog-centered" role="document" style="z-index: 10000">
+                        <div class="modal-content" style="z-index: 10000">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit comment</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" onsubmit="handleEditComment(event)">
+                                    <input type="hidden" name="id" value="${comment.id}"/>
+                                    <div class="form-group">
+                                        <textarea name="content" cols="30" rows="3" class="form-control">${comment.content}</textarea>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <ul class="children">
+
+                </ul>
+            </div>
+        </li>
+
+        `
+      });
+
+      commentList.innerHTML = html;
+    handleShowAllReplyLogic();
+    })
+    .catch(error => {
+      // Handle any errors
+      console.error('Error:', error);
+    });
+
+}
+
+function handleDeleteComment(commentId) {
+    if (commentId != null || commendId != undefined) {
+        fetchComments(`http://localhost:8080/api/comments/${commentId}`, {
+            method: "DELETE"
+          })
+            .then(data => {
+              // Handle the response data
+              console.log(data);
+              handleRenderComments(currentNewsId, 1000, 2);
+              console.log(document.getElementById(`modalDelete${commentId}`))
+              $(`#modalDelete${commentId}`).modal('hide');
+            })
+            .catch(error => {
+              // Handle any errors
+              console.error('Error:', error);
+            });
+    }
+}
+
+
+function handleHideReply (event) {
+    const list = event.target.parentNode.querySelector('.children');
+    list.innerHTML = '';
+}
+
+function handleShowHideReplyBtn(event) {
+    const replyBtn = event.target;
+    const hideReply = event.target.parentNode.querySelector('.hide-reply');
+    if (!hideReply.classList.contains('active')) {
+        hideReply.classList.add('active');
+        if (replyBtn.classList.contains('active')) {
+            replyBtn.classList.remove('active');
+        }
+    }
+}
+
+function handleReplyBtn (event) {
+    const hideReply = event.target;
+    const replyBtn = event.target.parentNode.querySelector('.show-reply');
+    if (!replyBtn.classList.contains('active')) {
+        replyBtn.classList.add('active');
+        if (hideReply.classList.contains('active')) {
+            hideReply.classList.remove('active');
+        }
+    }
+}
+
+
+
+function handleClose (id) {
+    $(`#modalReply${id}`).modal('hide')
+}
+
+function saveComment (event) {
+    event.preventDefault(); // Prevent the form from submitting and refreshing the page
+
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = {};
+
+    for (let [key, value] of formData.entries()) {
+      data[key] = value;
+    }
+
+    data.id = 0;
+    data.parentCommentId = 0;
+    data.accountId = 2;
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+
+    fetchComments(`http://localhost:8080/api/comments/save`, options)
+      .then(data => {
+        // Handle the response data
+        handleRenderComments(currentNewsId, 1000, 2)
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error('Error:', error);
+      });
+}
+
+function handleReply(event) {
+    event.preventDefault(); // Prevent the form from submitting and refreshing the page
+
+    const form = event.target;
+    const formData = new FormData(form);
+    const data = {};
+
+    for (let [key, value] of formData.entries()) {
+      data[key] = value;
+    }
+
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    };
+
+    fetchComments(`http://localhost:8080/api/comments/save-reply`, options)
+      .then(data => {
+        // Handle the response data
+        console.log(data);
+      })
+      .catch(error => {
+        // Handle any errors
+        console.error('Error:', error);
+      });
+}
+
+
+// Query selectors once
+const replyBtns = document.querySelectorAll('.reply-comment');
+
+// Reusable date conversion
+function convertDate(dateString) {
+
+    const date = new Date(dateString);
+
+    const day = date.getDate();
+    const month = date.toLocaleString('default', {
+        month: 'long'
+    });
+    const year = date.getFullYear();
+
+    return `${day} ${month} ${year}`;
+
+}
+
+// Fetch wrapper
+function fetchComments(url, config) {
+    return fetch(url, config)
+        .then(response => response.json());
+}
+
+// Handle like button click
+function handleLikeBtn(btn) {
+
+    const spanLike = btn.querySelector('span');
+    const commentId = btn.getAttribute('commentId');
+    let likeStatus = btn.getAttribute('likeStatus');
+
+    if (likeStatus === 'false') {
+        if (!btn.classList.contains('active')) {
+            btn.classList.add('active');
+        }
+        // Call fetch
+        fetchComments(`http://localhost:8080/api/comments/add-like/${commentId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(data => {
+                console.log(data);
+                spanLike.innerHTML = data.payload.likeNumber;
+                likeStatus = 'true';
+                btn.setAttribute('likeStatus', likeStatus);
+            })
+
+    } else {
+        while (btn.classList.contains('active')) {
+            btn.classList.remove('active');
+        }
+        // Call fetch
+        fetchComments(`http://localhost:8080/api/comments/remove-like/${commentId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(data => {
+                spanLike.innerHTML = data.payload.likeNumber;
+                likeStatus = 'false';
+                btn.setAttribute('likeStatus', likeStatus);
+            })
+    }
+}
+
+
+// Loop through like buttons
+
+const parent = document.querySelector('.comment-list');
+
+// Add single listener to parent
+parent.addEventListener('click', e => {
+
+  const target = e.target;
+
+  if (target.classList.contains('like')) {
+    handleLikeBtn(target);
+  } else {
+      if (target.closest('.like') && target.parentNode.classList.contains('like')) {
+         handleLikeBtn(target.parentNode);
+      }
+  }
+})
+
+// Handle show reply button
+function handleShowReplyBtn(btn) {
+
+    const parentCommentId = btn.getAttribute('commentId');
+    const ul = btn.parentNode.querySelector('ul.children');
+    fetchComments(`http://localhost:8080/api/comments/reply/${parentCommentId}/1000`, {
+            method: 'GET'
+        })
+        .then(data => {
+            ul.innerHTML = '';
+            data.payload.forEach(comment => {
+                const li = document.createElement('li');
+                li.classList.add('comment');
+                li.setAttribute('data-comment-id', comment.id);
+
+                li.innerHTML = `
+                          <div class="vcard bio">
+                          <img src="images/person_5.jpg" alt="Image placeholder">
+                          </div>
+                          <div class="comment-body">
+                          <h3>${comment.accountUsername}</h3>
+                          <div class="meta">${convertDate(comment.dateUpdated)}</div>
+                          <p>${comment.content}</p>
+
+                          <span style="margin-right: 5px; cursor:pointer;" class="like" likeStatus="false" commentId="${comment.id}">
+                                        <i class="fa-regular fa-thumbs-up"></i>
+                                        <span>${comment.likeNumber}</span>
+                                    </span>
+
+                                      <!-- Button trigger modal -->
+                                      ${comment.accountId == 2 ? `<span style="color: black; font-size: 13px; margin-right: 5px; cursor: pointer" data-toggle="modal" data-target="#modalDelete${comment.id}">
+                                          Delete
+                                      </span>` : ''}
+
+                                      <!-- Modal -->
+                                      <div class="modal fade" id="modalDelete${comment.id}" tabindex="-1" role="dialog" aria-labelledby="example-title" aria-hidden="true">
+                                          <div class="modal-dialog modal-dialog-centered" role="document">
+                                              <div class="modal-content">
+                                                  <div class="modal-header">
+                                                      <h5 class="modal-title" id="example-title">Confirm Delete</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      <h3>Do you want to delete this news?</h3>
+                                                  </div>
+                                                  <div class="modal-footer">
+                                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                      <button type="button" class="btn btn-primary">
+                                                          <span onclick="handleDeleteComment(${comment.id})" style="color: white">Yes</a>
+                                                      </button>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+
+                                      ${comment.accountId == 2 ? `<span style="color: black; font-size: 13px; margin-right: 5px; cursor: pointer" data-toggle="modal" data-target="#modalEdit${comment.id}">
+                                          Edit comment
+                                      </span>` : ''}
+
+                                      <!-- Modal -->
+                                      <div class="modal fade" id="modalEdit${comment.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="z-index: 100">
+                                          <div class="modal-dialog modal-dialog-centered" role="document" style="z-index: 10000">
+                                              <div class="modal-content" style="z-index: 10000">
+                                                  <div class="modal-header">
+                                                      <h5 class="modal-title" id="exampleModalLabel">Edit comment</h5>
+                                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                          <span aria-hidden="true">&times;</span>
+                                                      </button>
+                                                  </div>
+                                                  <div class="modal-body">
+                                                      <form method="POST" onsubmit="handleEditComment(event)" >
+                                                          <input type="hidden" name="id" value="${comment.id}"/>
+                                                          <div class="form-group">
+                                                              <textarea name="content" cols="30" rows="3" class="form-control">${comment.content}</textarea>
+                                                          </div>
+                                                          <div class="modal-footer">
+                                                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                              <button type="submit" class="btn btn-primary">Save changes</button>
+                                                          </div>
+                                                      </form>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <ul class="children">
+
+                                      </ul>
+                          </div>
+                      `;
+                ul.appendChild(li);
+            })
+        })
+}
+
+function handleShowAllReplyLogic () {
+    const showReplyBtns = document.querySelectorAll('.show-reply');
+    console.log(showReplyBtns);
+    // Loop through show reply buttons
+    showReplyBtns.forEach(btn => {
+
+        btn.addEventListener('click', () => {
+            handleShowReplyBtn(btn);
+        })
+
+    })
+}
+
+
+</script>
+
+
+</body>
+</html>

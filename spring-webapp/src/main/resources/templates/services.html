@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/quill.snow.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body id="top">
+
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+
+<div class="site-wrap">
+
+    <div th:replace="~{common/header :: header}"></div>
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('/images/hero_1.jpg');"
+             id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 class="text-white font-weight-bold">Services</h1>
+                    <div class="custom-breadcrumbs">
+                        <a href="/">Home</a> <span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>Services</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section services-section bg-light block__62849" id="next-section">
+        <div class="container">
+
+            <div class="row">
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+
+                    <a href="/service-single" class="block__16443 text-center d-block">
+                        <span class="custom-icon mx-auto"><span class="icon-magnet d-block"></span></span>
+                        <h3>Graphic Design</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum
+                            labore aperiam assumenda.</p>
+                    </a>
+
+                </div>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+
+                    <a href="/service-single" class="block__16443 text-center d-block">
+                        <span class="custom-icon mx-auto"><span class="icon-trophy d-block"></span></span>
+                        <h3>Marketing Strategy</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum
+                            labore aperiam assumenda.</p>
+                    </a>
+
+                </div>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+
+                    <a href="/service-single" class="block__16443 text-center d-block">
+                        <span class="custom-icon mx-auto"><span class="icon-laptop d-block"></span></span>
+                        <h3>Web Design</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum
+                            labore aperiam assumenda.</p>
+                    </a>
+
+                </div>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+
+                    <a href="/service-single" class="block__16443 text-center d-block">
+                        <span class="custom-icon mx-auto"><span class="icon-search d-block"></span></span>
+                        <h3>SEO</h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum
+                            labore aperiam assumenda.</p>
+                    </a>
+
+                </div>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+
+                    <a href="/service-single" class="block__16443 text-center d-block">
+                        <span class="custom-icon mx-auto"><span class="icon-paper-plane d-block"></span></span>
+                        <h3>Market Leading </h3>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis, pariatur harum
+                            labore aperiam assumenda.</p>
+                    </a>
+
+                </div>
+                <div class="col-6 col-md-6 col-lg-4 mb-4 mb-lg-5">
+
+                    <a href="/service-single" class="block__16443 text-center d-block">
+                        <span class="custom-icon mx-auto"><span class="icon-plug d-block"></span></span>
+                        <h3>Pixel Perfect Design</h3>
+                        <p class="d-sm-block">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fugit facilis,
+                            pariatur harum labore aperiam assumenda.</p>
+                    </a>
+
+                </div>
+            </div>
+
+
+        </div>
+    </section>
+
+    <div th:replace="~{common/footer :: footer}"></div>
+</div>
+
+<!-- SCRIPTS -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/stickyfill.min.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/quill.min.js}"></script>
+
+
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+
+<script th:src="@{/js/custom.js}"></script>
+</body>
+</html>

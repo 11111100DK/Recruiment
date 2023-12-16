@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/quill.snow.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" th:href="@{/richtext/richtext.min.css}"/>
+
+    <link rel="stylesheet" th:href="@{/pagination/styles.css}" />
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        .modal-backdrop.fade.show {
+            display: none;
+        }
+    </style>
+</head>
+<body id="top">
+
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+
+<div class="site-wrap">
+
+    <div th:replace="~{common/header :: header}"></div>
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('/images/hero_1.jpg');"
+             id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 class="text-white font-weight-bold">Our Blog</h1>
+                    <div class="custom-breadcrumbs">
+                        <a href="/">Home</a> <span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>Your blogs</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section">
+        <div class="container">
+
+            <div class="dropdown mb-5">
+                <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Filter
+                    <i class="fa-solid fa-filter"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/personal-blog">All News</a>
+                    <a class="dropdown-item" href="/personal-blog/newest">Last Updated</a>
+                    <a class="dropdown-item" href="/personal-blog/popular">Most popular</a>
+                </div>
+            </div>
+
+            <form method="GET" class="search-jobs-form" id="search-form" action>
+                <div class="row mb-5">
+                    <div class="col-12 col-sm-6 col-md-9 col-lg-9 mb-8 mb-lg-0">
+                        <input name="title" style="font-size: 16px" type="text" class="form-control form-control-lg"
+                               placeholder="Enter your title keywords...">
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-3 col-lg-3 mb-4 mb-lg-0">
+                        <button style="font-size: 16px" type="submit"
+                                class="btn btn-primary btn-lg btn-block text-white btn-search">
+                            <span class="icon-search icon mr-2"></span>Search News
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- List -->
+            <ul id="list" class="row mb-5 blog-list">
+                <li class="col-xs-12 col-sm-12 col-md-6 mb-4"
+                    th:if="${blog.status eq 'active'}"
+                    th:each="blog : ${blogs}"
+                    style="max-width: 33%"
+                >
+                        <a th:href="'/blog-detail?id=' + ${blog.id}">
+                            <img th:src="${blog.thumbnail}" alt="Image blog"
+                                 class="img-fluid rounded mb-4" style="width: 100%; max-height: 200px; object-fit: cover;">
+                        </a>
+                        <h3><a th:href="'/blog-detail?id=' + ${blog.id}" class="text-black" th:text="${blog.title}"></a>
+                        </h3>
+
+                        <div th:text="'Date updated: ' + ${blog.dateUpdated}"></div>
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <i class="fa-solid fa-eye"></i>
+                                <span th:text="'View: ' + ${blog.viewNumber}"></span>
+                            </div>
+                            <div class="dropdown">
+                                <span id="dropDownEdit" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="cursor: pointer">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </span>
+
+                                <div class="dropdown-menu" aria-labelledby="dropDownEdit">
+                                    <a th:href="'/edit-blog/'+${blog.id}" class="dropdown-item" style="cursor: pointer; text-decoration: none">
+                                        Edit News
+                                    </a>
+                                    <span class="dropdown-item" style="cursor: pointer" data-toggle="modal" th:data-target="'#deleteModal'+${blog.id}">
+                                        Delete
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    <!-- Modal delete-->
+                    <div class="modal fade" th:id="'deleteModal'+${blog.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Confirm Delete</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <h3>Do you want to delete this news</h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                                    <button type="button" class="btn btn-primary">
+                                        <a style="text-decoration: none; color: white" th:href="'/delete-blog?id='+${blog.id}">Yes</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="component">
+                <!-- Pagination buttons -->
+                <button id="prev">Prev</button>
+                <div id="pagination"></div>
+                <button id="next">Next</button>
+            </div>
+
+        </div>
+    </section>
+
+
+    <div th:replace="~{common/footer :: footer}"></div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/stickyfill.min.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/quill.min.js}"></script>
+
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+<script th:src="@{/js/custom.js}"></script>
+<script th:src="@{/richtext/jquery.richtext.min.js}"></script>
+
+<script>
+    // Generate mock data
+const list = document.querySelector('#list');
+const data = [];
+const collection = list.children;
+
+for (let i = 0; i < collection.length; i++) {
+  data.push(collection[i]);
+}
+
+const length = list.childElementCount;
+
+const perPage = 9;
+let currentPage = 1;
+
+// Get current list
+function getPaginatedData() {
+    console.log(list);
+    const startIndex = (currentPage - 1) * perPage;
+    return data.slice(startIndex, startIndex + perPage);
+}
+
+// Display list
+function displayList(items) {
+    const html = items.map(item => item.outerHTML);
+    list.innerHTML = html;
+}
+
+// Generate pagination buttons
+function setupPagination(data, wrapper) {
+    wrapper.innerHTML = '';
+    const numPages = Math.ceil(length / perPage);
+
+    if (numPages < 5) {
+        for (let i = 1; i <= numPages; i++) {
+            const btn = document.createElement('button');
+            btn.innerText = i;
+            btn.classList.add('page-' + i);
+
+            if (i === currentPage) {
+                btn.classList.add('active');
+            }
+
+            btn.addEventListener('click', () => {
+                currentPage = i;
+                displayList(getPaginatedData());
+
+                document.querySelector('.active').classList.remove('active');
+                btn.classList.add('active');
+            });
+
+            wrapper.appendChild(btn);
+        }
+        return;
+    }
+
+    // Display first 2 pages dynamically
+    let start = Math.max(currentPage - 1, 1);
+    let end = Math.min(start + 2, numPages);
+
+    if (end > numPages - 2) {
+        end = numPages - 2;
+        start = numPages - 3;
+    }
+
+    // Display first 2 pages
+    for (let i = start; i <= end; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = i;
+        btn.classList.add('page-' + i);
+
+        if (i === currentPage) {
+            btn.classList.add('active');
+        }
+
+        btn.addEventListener('click', () => {
+            currentPage = i;
+            displayList(getPaginatedData());
+
+            document.querySelector('.active').classList.remove('active');
+            btn.classList.add('active');
+        });
+
+        wrapper.appendChild(btn);
+    }
+
+    // Ellipsis
+    if (end < numPages - 2) {
+        let ellipsis = document.createElement('span');
+        ellipsis.innerHTML = '...';
+        wrapper.appendChild(ellipsis);
+    }
+
+    // Display last 2 pages
+    for (let i = numPages - 1; i <= numPages; i++) {
+        const btn = document.createElement('button');
+        btn.innerText = i;
+        btn.classList.add('page-' + i);
+
+        if (i === currentPage) {
+            btn.classList.add('active');
+        }
+
+        btn.addEventListener('click', () => {
+            currentPage = i;
+            displayList(getPaginatedData());
+
+            document.querySelector('.active').classList.remove('active');
+            btn.classList.add('active');
+        });
+
+        wrapper.appendChild(btn);
+    }
+}
+
+    const listBtn = document.querySelectorAll('[class*="page-"]');
+
+    // attach listeners
+    prev.addEventListener('click', () => {
+        const numPages = Math.ceil(length / perPage);
+
+        currentPage--;
+
+        if (currentPage < 1) {
+            currentPage = 1;
+        }
+
+        displayList(getPaginatedData());
+        setupPagination(data, pagination);
+
+    })
+
+    next.addEventListener('click', () => {
+        const numPages = Math.ceil(length / perPage);
+
+        currentPage++;
+
+        if (currentPage > numPages) {
+            currentPage = numPages;
+        }
+
+        displayList(getPaginatedData());
+        setupPagination(data, pagination);
+    })
+
+    // Initial render
+    displayList(getPaginatedData());
+    setupPagination(data, pagination);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>JobBoard &mdash; Website Template by Colorlib</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" th:href="@{/css/custom-bs.css}">
+    <link rel="stylesheet" th:href="@{/css/jquery.fancybox.min.css}">
+    <link rel="stylesheet" th:href="@{/css/bootstrap-select.min.css}">
+    <link rel="stylesheet" th:href="@{/fonts/icomoon/style.css}">
+    <link rel="stylesheet" th:href="@{/fonts/line-icons/style.css}">
+    <link rel="stylesheet" th:href="@{/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/css/animate.min.css}">
+    <link rel="stylesheet" th:href="@{/css/quill.snow.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body id="top">
+
+<div id="overlayer"></div>
+<div class="loader">
+    <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+
+
+<div class="site-wrap">
+
+    <div th:replace="~{common/header :: header}"></div>
+
+    <!-- HOME -->
+    <section class="section-hero overlay inner-page bg-image" style="background-image: url('/images/hero_1.jpg');"
+             id="home-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1 class="text-white font-weight-bold">About Us</h1>
+                    <div class="custom-breadcrumbs">
+                        <a href="#">Home</a> <span class="mx-2 slash">/</span>
+                        <span class="text-white"><strong>About Us</strong></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-image overlay-primary fixed overlay" id="next-section"
+             style="background-image: url('images/hero_1.jpg');">
+        <div class="container">
+            <div class="row mb-5 justify-content-center">
+                <div class="col-md-7 text-center">
+                    <h2 class="section-title mb-2 text-white">JobBoard Site Stats</h2>
+                    <p class="lead text-white">Welcome to JobBoard, where opportunities meet talent, and careers find their wings. Our platform isn't just another job board; it's a thriving ecosystem powered by data and success stories. JobBoard stands as a testament to our commitment to reshaping the future of recruitment.
+                    </p>
+                </div>
+            </div>
+            <div class="row pb-0 block__19738 section-counter">
+
+                <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                    <div class="d-flex align-items-center justify-content-center mb-2">
+                        <strong class="number" data-number="1930">0</strong>
+                    </div>
+                    <span class="caption">Candidates</span>
+                </div>
+
+                <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                    <div class="d-flex align-items-center justify-content-center mb-2">
+                        <strong class="number" data-number="54">0</strong>
+                    </div>
+                    <span class="caption">Jobs Posted</span>
+                </div>
+
+                <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                    <div class="d-flex align-items-center justify-content-center mb-2">
+                        <strong class="number" data-number="120">0</strong>
+                    </div>
+                    <span class="caption">Jobs Filled</span>
+                </div>
+
+                <div class="col-6 col-md-6 col-lg-3 mb-5 mb-lg-0">
+                    <div class="d-flex align-items-center justify-content-center mb-2">
+                        <strong class="number" data-number="550">0</strong>
+                    </div>
+                    <span class="caption">Companies</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="site-section pb-0">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0">
+                    <a data-fancybox data-ratio="2" href="https://vimeo.com/317571768" class="block__96788">
+                        <span class="play-icon"><span class="icon-play"></span></span>
+                        <img src="images/sq_img_6.jpg" alt="Image" class="img-fluid img-shadow">
+                    </a>
+                </div>
+                <div class="col-lg-5 ml-auto">
+                    <h2 class="section-title mb-3">JobBoard For Freelancers, Web Developers</h2>
+                    <p class="lead">Welcome to our dynamic Job Board tailored for freelancers and web developers! Here, we bridge the gap between talented professionals and exciting opportunities in the digital world. Whether you're an experienced freelancer seeking new projects or a skilled web developer looking for your next challenge, our platform is designed to empower your career journey.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="site-section pt-0">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-5 mb-lg-0 order-md-2">
+                    <a data-fancybox data-ratio="2" href="https://vimeo.com/317571768" class="block__96788">
+                        <span class="play-icon"><span class="icon-play"></span></span>
+                        <img src="images/sq_img_8.jpg" alt="Image" class="img-fluid img-shadow">
+                    </a>
+                </div>
+                <div class="col-lg-5 mr-auto order-md-1  mb-5 mb-lg-0">
+                    <h2 class="section-title mb-3">JobBoard For Workers</h2>
+                    <p class="lead">Whether you're a skilled laborer, a professional tradesperson, or someone looking for service-oriented roles, our platform is tailored to help you discover the perfect job matches.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div th:replace="~{common/footer :: footer}"></div>
+
+</div>
+
+<!-- SCRIPTS -->
+<script th:src="@{/js/jquery.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<script th:src="@{/js/isotope.pkgd.min.js}"></script>
+<script th:src="@{/js/stickyfill.min.js}"></script>
+<script th:src="@{/js/jquery.fancybox.min.js}"></script>
+<script th:src="@{/js/jquery.easing.1.3.js}"></script>
+
+<script th:src="@{/js/jquery.waypoints.min.js}"></script>
+<script th:src="@{/js/jquery.animateNumber.min.js}"></script>
+<script th:src="@{/js/owl.carousel.min.js}"></script>
+<script th:src="@{/js/quill.min.js}"></script>
+
+
+<script th:src="@{/js/bootstrap-select.min.js}"></script>
+
+<script th:src="@{/js/custom.js}"></script>
+
+
+</body>
+</html>
